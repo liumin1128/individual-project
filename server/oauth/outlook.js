@@ -75,11 +75,18 @@ class OauthClass {
       console.log('paramsTemp');
       console.log(paramsTemp);
 
-
       const data = await fetch(url, {}, options);
-
       console.log('data');
       console.log(data);
+
+      // {
+      //   "token_type":"Bearer",
+      //   "expires_in":"3600",
+      //   "access_token":"eyJ0eXAi...b66LoPVA",
+      //   "scope":"Mail.Read",
+      // }
+
+
       return;
       // 获取用户信息
       const userinfo = await fetch(`https://api.config.com/user?access_token=${accessToken}`);

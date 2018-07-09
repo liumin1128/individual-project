@@ -110,8 +110,8 @@ redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。
 
 已获取code，带入回调即可完成登录，至此对接outlook完成一半
 
-
-
+用code获取access_token,需要编码为application/x-www-form-urlencoded
+参考文档：https://github.com/bitinn/node-fetch即可实现
 
 
 
