@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "@babel/env",
+    ["@babel/preset-stage-0",{
+      "decoratorsLegacy": true,
+      "pipelineProposal": "minimal"
+    }]
+  ],
+  "plugins": [
+    "@babel/transform-runtime"
+  ]
+}
