@@ -6,6 +6,7 @@ import cors from 'koa2-cors';
 import helmet from 'koa-helmet';
 import jwt from 'koa-jwt';
 import mongoose from 'mongoose';
+import Oauth from './server/oauth';
 import { PORT, DEV, LOCAL, SECRET } from './config';
 import error from './middlewares/error_back';
 import { graphiql, graphql } from './graphql';
@@ -35,9 +36,11 @@ app.use(BodyParser({ enableTypes: ['json', 'form', 'text'] }));
 app.use(KoaStatic(`${__dirname}/public`));
 
 router
+  .use('/oauth', Oauth.routes())
   .post('/graphql', jwt({ secret: SECRET, passthrough: true }), graphql)
   .get('/graphql', graphql)
   .get('/graphiql', graphiql);
+
 
 app.use(router.routes());
 

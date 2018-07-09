@@ -12,6 +12,10 @@ class Github {
   async login(ctx) {
     console.log('一名懵懵懂懂的用户希望从outlook登录');
 
+    ctx.body = 'xxxxxx';
+    return;
+
+
     // 重定向到认证接口,并配置参数
     let path = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
 

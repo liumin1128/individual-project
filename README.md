@@ -25,7 +25,7 @@ npm i -S koa koa-router koa-bodyparser koa-helmet koa-jwt koa-static jsonwebtoke
 
 ```
 
-开发准备工作
+### 开发准备工作
 
 git
 nvm
@@ -33,7 +33,16 @@ node
 
 开发工具
 
-数据库mongo，redis
+数据库 mongo，redis
+
+编辑器 vsCode
+
+https://code.visualstudio.com/
+
+api调试器 postman
+https://chrome.google.com/webstore/category/extensions?utm_source=infinity
+chrome商店中搜索：postman
+
 
 学习资料：
 
@@ -45,18 +54,20 @@ https://www.imooc.com/learn/197
 
 后台对接outlook
 
-文档地址：
+#### 文档地址：
 
 https://apps.dev.microsoft.com/#/appList
 
-注册应用：
+#### 注册应用：
 
 https://apps.dev.microsoft.com/#/appList
 
 创建了一个应用
 
 名称随意: react.mobi
+
 类型: Web Api
+
 语言: node.js
 
 之后跳过,进入设置页
@@ -82,6 +93,8 @@ api://7b2befd1-9c19-4891-9d98-69d9da1c43a0/access_as_user
 用户权限 暂不设置，有一个User.read即可
 
 其他项暂不设置
+
+
 
 
 
