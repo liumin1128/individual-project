@@ -94,6 +94,17 @@ api://7b2befd1-9c19-4891-9d98-69d9da1c43a0/access_as_user
 
 其他项暂不设置
 
+写好登录模块后，将其挂载到oauth/outlook路径下，完整路径为
+
+http://localhost:3101/oauth/outlook
+
+多次测试并未成功，检查文档，问题在于：
+redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。此值必须与注册应用程序时使用的重定向URI的值相对应。
+
+回到应用设置页重新添加平台，新增Web平台
+重定向url填：http://localhost:3101/oauth/outlook，点击保存，大功告成
+
+已获取code，带入回调即可完成登录，至此对接outlook完成
 
 
 
