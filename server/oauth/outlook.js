@@ -1,4 +1,4 @@
-import github from '../../config/github';
+import config from '../../config/github';
 import fetch from '../../utils/fetch';
 import { User, Oauth } from '../../mongo/modals';
 import { DOMAIN } from '../../config';
@@ -10,13 +10,23 @@ import { getUserToken } from '../../utils/jwt';
 class Github {
   // 用户注册
   async login(ctx) {
-    console.log('用户登录');
-    const dataStr = (new Date()).valueOf();
+    console.log('一名懵懵懂懂的用户希望从outlook登录');
+
     // 重定向到认证接口,并配置参数
-    let path = 'https://github.com/login/oauth/authorize';
-    path += `?client_id=${github.client_id}`;
-    path += `&scope=${github.scope}`;
-    path += `&state=${dataStr}`;
+    let path = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
+
+    // client_id 通过注册应用程序生成的客户端ID。这使Azure知道哪个应用程序正在请求登录。
+    path += `?client_id=${config.client_id}`;
+
+    // redirect_uri 一旦用户同意应用程序，Azure将重定向到的位置。此值必须与注册应用程序时使用的重定向URI的值相对应
+    path += `&redirect_uri=${config.redirect_uri}`;
+
+    // response_type 应用程序期望的响应类型。对于授权授权流程，应始终如此code
+    path += `&response_type=${config.code}`;
+
+    path += `&scope=${config.scope}`;
+
+
     // 转发到授权服务器
     ctx.redirect(path);
   }
