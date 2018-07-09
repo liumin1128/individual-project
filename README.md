@@ -102,7 +102,7 @@ http://localhost:3101/oauth/outlook
 redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。此值必须与注册应用程序时使用的重定向URI的值相对应。
 
 回到应用设置页重新添加平台，新增Web平台
-重定向url填：http://localhost:3101/oauth/outlook，点击保存，大功告成
+重定向url填：http://localhost:3101/oauth/outlook/callback，点击保存，大功告成
 
 已获取code，带入回调即可完成登录，至此对接outlook完成
 
