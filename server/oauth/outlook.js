@@ -1,3 +1,4 @@
+import { URLSearchParams } from 'url';
 import config from '../../config/outlook';
 import fetch from '../../utils/fetch';
 import { User, Oauth } from '../../mongo/modals';
@@ -37,11 +38,49 @@ class OauthClass {
   async callback(ctx) {
     try {
       const { code } = ctx.query;
-      console.log('已获取用户code');
-      // 用token换取access_token
-      const au = 'https://config.com/login/oauth/access_token';
-      const params = { client_id: config.client_id, client_secret: config.client_secret, code };
-      const { access_token: accessToken } = await fetch(au, params);
+      console.log('哇塞，又个单纯可爱的用户把code交到了你的手中，哇咔咔');
+      console.log(`code：${code}`);
+
+      // 下面构造个post请求，换取用户信息
+      const url = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+      const params = {
+        // client_id：通过注册应用程序生成的客户端ID
+        client_id: config.client_id,
+        // client_secret：通过注册应用程序生成的客户端密钥。
+        client_secret: config.client_secret,
+        // code：在前一步骤中获得的授权码。
+        code,
+        // redirect_uri：此值必须与授权代码请求中使用的值相同。
+        redirect_uri: config.redirect_uri,
+        // grant_type：应用程序使用的授权类型。对于授权授权流程，应始终如此authorization_code
+        grant_type: config.grant_type,
+      };
+
+
+      const paramsTemp = new URLSearchParams();
+
+      Object.keys(params).map((key) => {
+        paramsTemp.append(key, params[key]);
+      });
+
+      // 这些参数被编码为application/x-www-form-urlencoded内容类型并发送到令牌请求URL。
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: paramsTemp,
+      };
+
+      console.log('paramsTemp');
+      console.log(paramsTemp);
+
+
+      const data = await fetch(url, {}, options);
+
+      console.log('data');
+      console.log(data);
+      return;
       // 获取用户信息
       const userinfo = await fetch(`https://api.config.com/user?access_token=${accessToken}`);
 

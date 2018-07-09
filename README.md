@@ -56,7 +56,7 @@ https://www.imooc.com/learn/197
 
 #### 文档地址：
 
-https://apps.dev.microsoft.com/#/appList
+https://docs.microsoft.com/en-us/outlook/rest/get-started
 
 #### 注册应用：
 
@@ -94,6 +94,10 @@ api://7b2befd1-9c19-4891-9d98-69d9da1c43a0/access_as_user
 
 其他项暂不设置
 
+参考文档开始码字，略去20分钟
+
+https://docs.microsoft.com/en-us/outlook/rest/get-started
+
 写好登录模块后，将其挂载到oauth/outlook路径下，完整路径为
 
 http://localhost:3101/oauth/outlook
@@ -104,7 +108,11 @@ redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。
 回到应用设置页重新添加平台，新增Web平台
 重定向url填：http://localhost:3101/oauth/outlook/callback，点击保存，大功告成
 
-已获取code，带入回调即可完成登录，至此对接outlook完成
+已获取code，带入回调即可完成登录，至此对接outlook完成一半
+
+
+
+
 
 
 
