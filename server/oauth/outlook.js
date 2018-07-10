@@ -72,12 +72,12 @@ class OauthClass {
         body: paramsTemp,
       };
 
-      console.log('paramsTemp');
-      console.log(paramsTemp);
-
       const data = await fetch(url, {}, options);
-      console.log('data');
-      console.log(data);
+      const buff = Buffer.from(data.id_token.split('.')[1], 'base64');
+      const result = buff.toString();
+
+      console.log('result');
+      console.log(result);
 
       // {
       //   "token_type":"Bearer",
