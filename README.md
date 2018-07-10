@@ -35,6 +35,10 @@ node
 
 数据库 mongo，redis
 
+monogo: https://fastdl.mongodb.org/osx/mongodb-osx-ssl-x86_64-4.0.0.tgz
+
+brew install mongo redis
+
 编辑器 vsCode
 
 https://code.visualstudio.com/
@@ -112,6 +116,16 @@ redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。
 
 用code获取access_token,需要编码为application/x-www-form-urlencoded
 参考文档：https://github.com/bitinn/node-fetch即可实现
+
+
+参考了文档：https://docs.microsoft.com/zh-cn/outlook/rest/node-tutorial
+获取id_token，使用jwt方法，获取中间部分base64解码，得到部分信息
+
+信息不包含用户信息名等，前往app设置，添加权限需求，修改scope字段为：openid profile User.Read Mail.Read
+
+刷新程序，已获取用户名，邮箱
+
+写好登录逻辑，用户信息存入用户表，oauth信息存入oauth表，将token返回给前端，至此登录部分完
 
 
 
