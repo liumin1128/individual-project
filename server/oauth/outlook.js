@@ -3,7 +3,7 @@ import config from '../../config/outlook';
 import fetch from '../../utils/fetch';
 import { User, Oauth } from '../../mongo/modals';
 import { DOMAIN } from '../../config';
-import { fetchToQiniu } from '../../utils/qiniu';
+// import { fetchToQiniu } from '../../utils/qiniu';
 import { getUserToken } from '../../utils/jwt';
 
 // import { client } from '../../utils/redis';
@@ -43,6 +43,7 @@ class OauthClass {
 
       // 下面构造个post请求，换取用户信息
       const url = 'https://login.microsoftonline.com/common/oauth2/v2.0/token';
+
       const params = {
         // client_id：通过注册应用程序生成的客户端ID
         client_id: config.client_id,
@@ -55,7 +56,6 @@ class OauthClass {
         // grant_type：应用程序使用的授权类型。对于授权授权流程，应始终如此authorization_code
         grant_type: config.grant_type,
       };
-
 
       const paramsTemp = new URLSearchParams();
 
@@ -74,41 +74,43 @@ class OauthClass {
 
       const data = await fetch(url, {}, options);
       const buff = Buffer.from(data.id_token.split('.')[1], 'base64');
-      const result = buff.toString();
+      const result = JSON.parse(buff.toString());
 
-      console.log('result');
-      console.log(result);
-
-      // {
-      //   "token_type":"Bearer",
-      //   "expires_in":"3600",
-      //   "access_token":"eyJ0eXAi...b66LoPVA",
-      //   "scope":"Mail.Read",
-      // }
-
-
-      return;
-      // 获取用户信息
-      const userinfo = await fetch(`https://api.config.com/user?access_token=${accessToken}`);
+      // console.log('result');
+      // console.log(result);
 
       // 从数据库查找对应用户第三方登录信息
-      let oauth = await Oauth.findOne({ from: 'config', 'data.login': userinfo.login });
-
+      let oauth = await Oauth.findOne({ from: 'outlook', 'data.preferred_username': result.preferred_username });
       if (!oauth) {
-        console.log('新用户注册2');
-        // 如果不存在则创建新用户，并保存该用户的第三方登录信息
-        const { avatar_url, name } = userinfo;
+        // 前面半天都是为了获取用户在此app的唯一标识，username，拿稳存好
+        const { preferred_username: username, name: nickname } = result;
+
+        // console.log('username, nickname');
+        // console.log(username, nickname);
 
         // 将用户头像上传至七牛
-        const avatarUrl = await fetchToQiniu(avatar_url);
-        console.log('avatarUrl');
-        console.log(avatarUrl);
-        const user = await User.create({ avatarUrl, nickname: name });
-        // await client.setAsync(user._id, user);
-        oauth = await Oauth.create({ from: 'config', data: userinfo, user });
+        // const avatarUrl = await fetchToQiniu(avatar_url);
+
+        // 用户信息存一下
+        const user = await User.create({ username, nickname });
+
+        // 用户第三方信息存一下
+        oauth = await Oauth.create({ from: 'outlook', data: result, user });
+      } else {
+        // oauth.save()
+        // todo 刷新一下用户信息，避免token过期
       }
+
       // 生成token（用户身份令牌）
       const token = await getUserToken(oauth.user);
+
+      //
+      //
+      // 这里注意，我们使用简易方式，直接将jwt传给前端，
+      // 如果安全性要求较高，或者有过期时间的需求，可以使用redis存缓token，只将引索传给前端
+      //
+      //
+
       // 重定向页面到用户登录页，并返回token
       ctx.redirect(`${DOMAIN}/oauth?token=${token}`);
     } catch (error) {
