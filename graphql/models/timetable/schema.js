@@ -9,12 +9,12 @@ export default `
     user: User!
     startOfDay: String!
     endOfDay: String!
-    startOfHour: Number!
-    endOfHour: Number!
-    timeRange: Number!
+    startOfHour: Int!
+    endOfHour: Int!
+    timeRange: Int!
     multi: Boolean,
     # 允许多名访客同时会面吗
-    times: Array!
+    times: [Int!]
     createdAt: String!
     _id: String!
   }
@@ -23,11 +23,11 @@ export default `
     description: String!
     startOfDay: String!
     endOfDay: String!
-    startOfHour: Number!
-    endOfHour: Number!
-    timeRange: Number!
+    startOfHour: Int!
+    endOfHour: Int!
+    timeRange: Int!
     multi: Boolean,
     # 允许多名访客同时会面吗
-    times: [Number!]
+    times: [Int!]
   }
 `;
