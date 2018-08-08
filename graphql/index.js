@@ -15,7 +15,8 @@ export const graphql = graphqlKoa((ctx) => {
   return {
     schema,
     formatError,
-    context: { user: user.data, ...ctx },
+    // context: { user: user.data, ...ctx },
+    context: { user: '5b44bf8fd9c4bd0bbdfd097d' },
   };
 });
 

@@ -15,6 +15,6 @@ export default {
   timeRange: Number, // 时间片段
   multi: Boolean, // 允许多名访客同时会面吗
 
-  times: Array, // 可用时间点
+  times: String, // 可用时间点
 
 };
