@@ -1,0 +1,12 @@
+{
+  "days":7,
+  "description":"312312",
+  "endOfDay":"2018-08-15",
+  "endOfHour":17,
+  "multi":true,
+  "startOfDay":"2018-08-08",
+  "startOfHour":8,
+  "timeRange":60,
+  "title":"31231",
+  "times": "{\"2018-08-09\":[8],\"2018-08-10\":[9]}"
+}

@@ -14,7 +14,7 @@ export default `
     timeRange: Int!
     multi: Boolean,
     # 允许多名访客同时会面吗
-    times: [Int!]
+    times: String!
     createdAt: String!
     _id: String!
   }
@@ -28,6 +28,6 @@ export default `
     timeRange: Int!
     multi: Boolean,
     # 允许多名访客同时会面吗
-    times: [Int!]
+    times: String!
   }
 `;
