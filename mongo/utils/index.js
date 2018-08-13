@@ -1,4 +1,4 @@
-export const commonSchema = {
+export const common = {
   createdAt: {
     type: Date,
     default: Date.now(),
@@ -8,4 +8,3 @@ export const commonSchema = {
     default: Date.now(),
   },
 };
-
