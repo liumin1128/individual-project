@@ -19,18 +19,18 @@ export default async (ctx, next) => {
       if (!user) {
         user = await User.findById(data);
         if (user) {
-          console.log('用户不存在！');
+          console.log('The	user	does	not	exist	！');
           ctx.body = {
             status: 401,
-            message: '用户不存在！',
+            message: 'The	user	does	not	exist	！',
           };
         }
         await client.setAsync(user._id, user);
-        console.log('查询并保存');
+        console.log('Query and save');
       }
       ctx.user = user;
     } else {
-      console.log('无效');
+      console.log('invalid');
     }
   }
   await next();
