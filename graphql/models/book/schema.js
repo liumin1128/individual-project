@@ -19,5 +19,6 @@ export default `
     lastName: String!
     studentId: String!
     times: String!
+    timetable: String!
   }
 `;

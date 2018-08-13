@@ -1,6 +1,6 @@
 
 import { Book } from '../../../mongo/modals';
-import { userLoader } from '../../utils';
+import { userLoader, timetableLoader } from '../../utils';
 import { throwError } from '../../utils/error';
 
 export default {
@@ -55,5 +55,6 @@ export default {
   },
   Book: {
     user: ({ user }) => userLoader.load(user),
+    timetable: ({ timetable }) => timetableLoader.load(timetable),
   },
 };
