@@ -9,12 +9,12 @@ export default {
     createBook: async (root, args, ctx, op) => {
       console.log('createBook');
       const { user } = ctx;
-      console.log('user');
-      console.log(user);
+      // console.log('user');
+      // console.log(user);
 
       const userInfo = await User.findById(user);
-      console.log('userInfo');
-      console.log(userInfo);
+      // console.log('userInfo');
+      // console.log(userInfo);
 
 
       // throwError({ message: '尚未登录！', data: { status: 403 } });
@@ -22,12 +22,12 @@ export default {
         throwError({ message: '尚未登录！', data: { status: 403 } });
       }
       const { input } = args;
-      console.log('createBook input');
-      console.log(input);
+      // console.log('createBook input');
+      // console.log(input);
 
       const timetable = await Timetable.findById(input.timetable);
-      console.log('timetable');
-      console.log(timetable);
+      // console.log('timetable');
+      // console.log(timetable);
 
       const data = await Book.create({ ...input, user });
 
@@ -47,7 +47,9 @@ export default {
         ],
       });
 
-      const timetableUserInfo = User.findById(timetable.user);
+      const timetableUserInfo = await User.findById(timetable.user);
+      console.log('timetableUserInfo');
+      console.log(timetableUserInfo);
 
       await sentOutlookEmail(timetable.user, {
         subject: `【活动被预订】${timetable.title}`,
