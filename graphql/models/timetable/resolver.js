@@ -24,14 +24,14 @@ export default {
       const { input } = args;
       console.log('createTimetable input');
       console.log(input);
-      const say = await Timetable.create({ ...input, user });
+      const data = await Timetable.create({ ...input, user });
 
       const params = {
-        subject: '活动创建成功！',
+        subject: `【活动创建成功！】${data.title}`,
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: '<h1>活动创建成功</h1>!',
+          content: `<h1>【活动创建成功！】${data.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
@@ -42,7 +42,7 @@ export default {
         ],
       };
       await sentOutlookEmail(user, params);
-      return say;
+      return data;
     },
 
   },
