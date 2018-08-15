@@ -53,6 +53,10 @@ export const sentOutlookEmail = async (userId, params) => {
       },
     });
 
+
+    console.log('data');
+    console.log(data);
+
     return data2;
   } catch (error) {
     console.log('error');

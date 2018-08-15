@@ -1,7 +1,8 @@
 
-import { Timetable } from '../../../mongo/modals';
+import { Timetable, User } from '../../../mongo/modals';
 import { userLoader } from '../../utils';
 import { throwError } from '../../utils/error';
+import { sentOutlookEmail } from '../../../utils/outlook';
 
 export default {
   Mutation: {
@@ -11,6 +12,11 @@ export default {
       console.log('user');
       console.log(user);
 
+      const userInfo = await User.findById(user);
+
+      console.log('userInfo');
+      console.log(userInfo);
+
       // throwError({ message: '尚未登录！', data: { status: 403 } });
       if (!user) {
         throwError({ message: '尚未登录！', data: { status: 403 } });
@@ -19,6 +25,23 @@ export default {
       console.log('createTimetable input');
       console.log(input);
       const say = await Timetable.create({ ...input, user });
+
+      const params = {
+        subject: '活动创建成功！',
+        importance: 'Low',
+        body: {
+          contentType: 'HTML',
+          content: '<h1>活动创建成功</h1>!',
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: userInfo.username,
+            },
+          },
+        ],
+      };
+      await sentOutlookEmail(user, params);
       return say;
     },
 
