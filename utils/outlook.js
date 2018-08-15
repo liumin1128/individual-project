@@ -1,33 +1,62 @@
+import fetch from 'node-fetch';
 import { Oauth } from '../mongo/modals';
-import fetch from './fetch';
+
+const fetch1 = (url, params = {}, options = {}) => {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(params),
+    ...options,
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
+
+
+const fetch2 = (url, options = {}) => {
+  return fetch(url, {
+    method: 'POST',
+    ...options,
+  })
+    .then((res) => {
+      return res.text();
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+};
 
 export const sentOutlookEmail = async (userId, params) => {
-  const url = 'https://graph.microsoft.com/v1.0/me/messages';
+  try {
+    const url = 'https://graph.microsoft.com/v1.0/me/messages';
 
-  const oauth = await Oauth.findOne({ user: userId });
+    const oauth = await Oauth.findOne({ user: userId });
 
-  const token = oauth.data.token.access_token;
+    const token = oauth.data.token.access_token;
 
-  const data = await fetch(url, params, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    const data = await fetch1(url, params, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  console.log(data.id);
+    const urlSend = `https://graph.microsoft.com/v1.0/me/messages/${data.id}/send`;
 
-  const urlSend = `https://graph.microsoft.com/v1.0/me/messages/${data.id}/send`;
+    const data2 = await fetch2(urlSend, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  const data2 = await fetch(urlSend, {}, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      token,
-    }),
-  });
-
-  return data2;
+    return data2;
+  } catch (error) {
+    console.log('error');
+    console.log(error);
+    return error;
+  }
 };
