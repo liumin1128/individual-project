@@ -76,8 +76,10 @@ class OauthClass {
       const buff = Buffer.from(data.id_token.split('.')[1], 'base64');
       const result = JSON.parse(buff.toString());
 
-      // console.log('result');
-      // console.log(result);
+      console.log('data');
+      console.log(data);
+
+      result.token = data;
 
       // 从数据库查找对应用户第三方登录信息
       let oauth = await Oauth.findOne({ from: 'outlook', 'data.preferred_username': result.preferred_username });
@@ -97,7 +99,7 @@ class OauthClass {
         // 用户第三方信息存一下
         oauth = await Oauth.create({ from: 'outlook', data: result, user });
       } else {
-        // oauth.save()
+        oauth.save({ data: result });
         // todo 刷新一下用户信息，避免token过期
       }
 
@@ -113,6 +115,50 @@ class OauthClass {
 
       // 重定向页面到用户登录页，并返回token
       ctx.redirect(`${DOMAIN}/login/oauth?token=${token}`);
+    } catch (error) {
+      console.log('error');
+      console.log(error);
+    }
+  }
+
+  async test(ctx) {
+    try {
+      const url = 'https://graph.microsoft.com/v1.0/me/messages';
+      const oauth = await Oauth.findOne({ from: 'outlook', 'data.preferred_username': '970568830@qq.com' });
+      console.log('oauth.data.token.access_token');
+      console.log(oauth.data.token.access_token);
+      const token = oauth.data.token.access_token;
+      const options = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      };
+
+      const params = {
+        subject: "Did you see last night's game?",
+        importance: 'Low',
+        body: {
+          contentType: 'HTML',
+          content: 'They were <b>awesome</b>!',
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: '970568830@qq.com',
+            },
+          },
+        ],
+      };
+
+      const data = await fetch(url, params, options);
+
+
+      console.log('data');
+      console.log(data);
+
+
+      ctx.body = JSON.stringify(data);
     } catch (error) {
       console.log('error');
       console.log(error);

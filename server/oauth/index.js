@@ -8,4 +8,5 @@ export default router
   .get('/github', github.login)
   .get('/github/callback', github.callback)
   .get('/outlook', outlook.login)
-  .get('/outlook/callback', outlook.callback);
+  .get('/outlook/callback', outlook.callback)
+  .get('/outlook/test', outlook.test);
