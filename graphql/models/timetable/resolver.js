@@ -31,7 +31,7 @@ export default {
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【thank you for using smart meeting scheduler, your meeting scheduler is created！】${data.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【thank you for using smart meeting scheduler, your meeting scheduler is created！】${data.title}</h1><br/><p>${data.description}</p><br/><p>thanks for booking meeting ,please click here to check the booking information ：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {

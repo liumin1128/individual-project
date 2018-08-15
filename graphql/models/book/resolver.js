@@ -38,7 +38,7 @@ export default {
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【thank for booking your appointment！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【your meeting is booked！！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>thanks for booking your appointment, click here to check the meeting information：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
@@ -59,7 +59,7 @@ export default {
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【new appointment】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【new appointment】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>you have a new appointment! click here to check te meeting information：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
