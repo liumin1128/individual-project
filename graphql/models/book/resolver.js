@@ -8,6 +8,7 @@ export default {
   Mutation: {
     createBook: async (root, args, ctx, op) => {
       console.log('createBook');
+
       const { user } = ctx;
       // console.log('user');
       // console.log(user);

@@ -127,6 +127,65 @@ redirect_uri：一旦用户同意应用程序，Azure将重定向到的位置。
 
 写好登录逻辑，用户信息存入用户表，oauth信息存入oauth表，将token返回给前端，至此登录部分完
 
+### 发送邮件
+
+1.发送个活动的发布者
+2.发送给活动的订阅者
+
+参考文档：https://developer.microsoft.com/zh-cn/graph/docs/api-reference/v1.0/resources/message
+
+根据文档要求，发送邮件需要先创建邮件，再进行发送。
+创建邮件需要Mail.ReadWrite权限，先去app中申请权限，再到config/outlook中配置。
+发送邮件需要Mail.Send权限，先去app中申请权限，再到config/outlook中配置。
+
+创建邮件，需根据文档要求，构建https请求如下：
+
+```
+  const url = 'https://graph.microsoft.com/v1.0/me/messages';
+  const params = {
+    subject: "Did you see last night's game?",
+    importance: 'Low',
+    body: {
+      contentType: 'HTML',
+      content: 'They were <b>awesome</b>!',
+    },
+    toRecipients: [
+      {
+        emailAddress: {
+          address: '970568830@qq.com',
+        },
+      },
+    ],
+  };
+  ...
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`,
+  },
+  ...
+```
+
+传递正确参数后即可得到邮件草稿创建成功的反馈。
+
+发送邮件需将上一步反馈中的草稿id作为参数，构造新的http请求，如下：
+
+```
+const data2 = await sentOutlookEmail('5b73ab77c8476f10abb5401f', params);
+
+headers: {
+  'Content-Type': 'application/json',
+  Authorization: `Bearer ${token}`,
+},
+```
+
+提交正确参数，即可完成邮件创建与发送流程。
+
+需注意的是：这个请求的反馈不是json格式，需解析为text类型。
+
+将方法抽象为公共函数，传入用户id和邮件参数，即可实现任意用户对其他任意用户发送邮件的需求。
+
+
+
 
 
 
