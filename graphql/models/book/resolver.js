@@ -31,6 +31,7 @@ export default {
 
       const data = await Book.create({ ...input, user });
 
+      // 给预订者发邮件
       await sentOutlookEmail(user, {
         subject: `【活动预订成功！】${timetable.title}`,
         importance: 'Low',
@@ -41,7 +42,7 @@ export default {
         toRecipients: [
           {
             emailAddress: {
-              address: userInfo.username,
+              address: input.email || userInfo.username,
             },
           },
         ],
@@ -51,6 +52,7 @@ export default {
       console.log('timetableUserInfo');
       console.log(timetableUserInfo);
 
+      // 给活动发布者发邮件
       await sentOutlookEmail(timetable.user, {
         subject: `【活动被预订】${timetable.title}`,
         importance: 'Low',
@@ -61,7 +63,7 @@ export default {
         toRecipients: [
           {
             emailAddress: {
-              address: timetableUserInfo.username,
+              address: timetable.email || timetableUserInfo.username,
             },
           },
         ],

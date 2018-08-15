@@ -36,7 +36,7 @@ export default {
         toRecipients: [
           {
             emailAddress: {
-              address: userInfo.username,
+              address: input.email || userInfo.username,
             },
           },
         ],
