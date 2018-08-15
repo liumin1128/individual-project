@@ -24,6 +24,9 @@ export const sentOutlookEmail = async (userId, params) => {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify({
+      token,
+    }),
   });
 
   return data2;
