@@ -5,6 +5,7 @@ import { User, Oauth } from '../../mongo/modals';
 import { DOMAIN } from '../../config';
 // import { fetchToQiniu } from '../../utils/qiniu';
 import { getUserToken } from '../../utils/jwt';
+import { sentOutlookEmail } from '../../utils/outlook';
 
 // import { client } from '../../utils/redis';
 
@@ -123,18 +124,6 @@ class OauthClass {
 
   async test(ctx) {
     try {
-      const url = 'https://graph.microsoft.com/v1.0/me/messages';
-      const oauth = await Oauth.findOne({ from: 'outlook', 'data.preferred_username': '970568830@qq.com' });
-      console.log('oauth.data.token.access_token');
-      console.log(oauth.data.token.access_token);
-      const token = oauth.data.token.access_token;
-      const options = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
       const params = {
         subject: "Did you see last night's game?",
         importance: 'Low',
@@ -151,14 +140,12 @@ class OauthClass {
         ],
       };
 
-      const data = await fetch(url, params, options);
+      const data2 = await sentOutlookEmail('5b739c0b7441b00b465c7b56', params);
 
+      console.log('data2');
+      console.log(data2);
 
-      console.log('data');
-      console.log(data);
-
-
-      ctx.body = JSON.stringify(data);
+      ctx.body = JSON.stringify(data2);
     } catch (error) {
       console.log('error');
       console.log(error);
