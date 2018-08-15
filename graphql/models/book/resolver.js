@@ -1,7 +1,8 @@
 
-import { Book } from '../../../mongo/modals';
+import { Book, User, Timetable } from '../../../mongo/modals';
 import { userLoader, timetableLoader } from '../../utils';
 import { throwError } from '../../utils/error';
+import { sentOutlookEmail } from '../../../utils/outlook';
 
 export default {
   Mutation: {
@@ -11,6 +12,11 @@ export default {
       console.log('user');
       console.log(user);
 
+      const userInfo = await User.findById(user);
+      console.log('userInfo');
+      console.log(userInfo);
+
+
       // throwError({ message: '尚未登录！', data: { status: 403 } });
       if (!user) {
         throwError({ message: '尚未登录！', data: { status: 403 } });
@@ -18,8 +24,48 @@ export default {
       const { input } = args;
       console.log('createBook input');
       console.log(input);
-      const say = await Book.create({ ...input, user });
-      return say;
+
+      const timetable = await Timetable.findById(input.timetable);
+      console.log('timetable');
+      console.log(timetable);
+
+      const data = await Book.create({ ...input, user });
+
+      await sentOutlookEmail(user, {
+        subject: `【活动预订成功！】${timetable.title}`,
+        importance: 'Low',
+        body: {
+          contentType: 'HTML',
+          content: `<h1>【活动预订成功！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: userInfo.username,
+            },
+          },
+        ],
+      });
+
+      const timetableUserInfo = User.findById(timetable.user);
+
+      await sentOutlookEmail(timetable.user, {
+        subject: `【活动被预订】${timetable.title}`,
+        importance: 'Low',
+        body: {
+          contentType: 'HTML',
+          content: `<h1>【活动被预订】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+        },
+        toRecipients: [
+          {
+            emailAddress: {
+              address: timetableUserInfo.username,
+            },
+          },
+        ],
+      });
+
+      return data;
     },
 
   },
