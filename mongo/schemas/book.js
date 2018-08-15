@@ -10,4 +10,5 @@ export default {
   studentId: String,
   times: String,
   description: String,
+  email: String,
 };

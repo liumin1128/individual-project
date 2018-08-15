@@ -11,6 +11,7 @@ export default `
     studentId: String!
     times: String!
     createdAt: String!
+    email: String!
     _id: String!
   }
   input BookInput {
@@ -20,5 +21,6 @@ export default `
     studentId: String!
     times: String!
     timetable: String!
+    email: String!
   }
 `;

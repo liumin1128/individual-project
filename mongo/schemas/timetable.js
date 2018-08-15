@@ -16,5 +16,6 @@ export default {
   multi: Boolean, // Are multiple visitors allowed to meet at the same time？
 
   times: String, // Available time point
+  email: String,
 
 };

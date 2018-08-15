@@ -16,6 +16,7 @@ export default `
     # 允许多名访客同时会面吗
     times: String!
     createdAt: String!
+    email: String!
     _id: String!
   }
   input TimetableInput {
@@ -26,7 +27,8 @@ export default `
     startOfHour: Int!
     endOfHour: Int!
     timeRange: Int!
-    multi: Boolean,
+    multi: Boolean
+    email: String!
     # 允许多名访客同时会面吗
     times: String!
   }
