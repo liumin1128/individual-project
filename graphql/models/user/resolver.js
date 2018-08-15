@@ -11,20 +11,20 @@ export default {
           const token = await getUserToken(user._id);
           return {
             status: 200,
-            message: '登录成功！',
+            message: 'login in sucessfully！',
             token,
             userInfo: user,
           };
         } else {
           return {
             status: 403,
-            message: '用户名或密码不正确',
+            message: 'username or password is incorrect',
           };
         }
       } catch (error) {
         return {
           status: 403,
-          message: '登录失败',
+          message: 'login in failed',
           error,
         };
       }

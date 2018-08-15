@@ -34,11 +34,11 @@ export default {
 
       // 给预订者发邮件
       await sentOutlookEmail(user, {
-        subject: `【活动预订成功！】${timetable.title}`,
+        subject: `【your meeting is booked！】${timetable.title}`,
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【活动预订成功！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【thank for booking your appointment！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
@@ -55,11 +55,11 @@ export default {
 
       // 给活动发布者发邮件
       await sentOutlookEmail(timetable.user, {
-        subject: `【活动被预订】${timetable.title}`,
+        subject: `【new appointment】${timetable.title}`,
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【活动被预订】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【new appointment】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {

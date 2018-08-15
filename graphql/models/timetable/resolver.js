@@ -19,7 +19,7 @@ export default {
 
       // throwError({ message: '尚未登录！', data: { status: 403 } });
       if (!user) {
-        throwError({ message: '尚未登录！', data: { status: 403 } });
+        throwError({ message: 'you have not login in, please login in ！', data: { status: 403 } });
       }
       const { input } = args;
       console.log('createTimetable input');
@@ -27,11 +27,11 @@ export default {
       const data = await Timetable.create({ ...input, user });
 
       const params = {
-        subject: `【活动创建成功！】${data.title}`,
+        subject: `【your meeting scheduler is created！】${data.title}`,
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【活动创建成功！】${data.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【thank you for using smart meeting scheduler, your meeting scheduler is created！】${data.title}</h1><br/><p>${data.description}</p><br/><p>请点击以下链接前往：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
