@@ -12,7 +12,7 @@ import { sentOutlookEmail } from '../../utils/outlook';
 class OauthClass {
   // 用户注册
   async login(ctx) {
-    console.log('一名懵懵懂懂的用户希望从outlook登录');
+    console.log('a new user want to login in outlook');
     console.log('config');
     console.log(config);
 
@@ -39,7 +39,7 @@ class OauthClass {
   async callback(ctx) {
     try {
       const { code } = ctx.query;
-      console.log('哇塞，又个单纯可爱的用户把code交到了你的手中，哇咔咔');
+      console.log('new user just submitted the code');
       console.log(`code：${code}`);
 
       // 下面构造个post请求，换取用户信息
