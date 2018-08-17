@@ -88,13 +88,6 @@ class OauthClass {
         // 前面半天都是为了获取用户在此app的唯一标识，username，拿稳存好
         const { preferred_username: username, name: nickname } = result;
 
-        // console.log('username, nickname');
-        // console.log(username, nickname);
-
-        // 将用户头像上传至七牛
-        // const avatarUrl = await fetchToQiniu(avatar_url);
-
-        // 用户信息存一下
         const user = await User.create({ username, nickname });
 
         // 用户第三方信息存一下
