@@ -4,6 +4,10 @@ import { userLoader, timetableLoader } from '../../utils';
 import { throwError } from '../../utils/error';
 import { sentOutlookEmail } from '../../../utils/outlook';
 
+
+/* eslint-disable camelcase */
+/* eslint-disable array-callback-return */
+
 export default {
   Mutation: {
     createBook: async (root, args, ctx, op) => {
@@ -29,6 +33,29 @@ export default {
       const timetable = await Timetable.findById(input.timetable);
       // console.log('timetable');
       // console.log(timetable);
+
+      // 查找当前活动已被预订的数据
+      const bookList = await Book.find({ timetable: input.timetable });
+
+      const times = JSON.parse(input.times);
+      Object.keys(times).map((key) => {
+        bookList.map((boo) => {
+          const timetable_times = JSON.parse(boo.times);
+
+          // 看其他人都选了那些时间段
+          const timetable_selected = timetable_times[key];
+          const book_selected = times[key];
+
+          book_selected.map((i) => {
+            // 检测所选的时间点前面两个时间点是否已被选中
+            if (timetable_selected.indexOf((times[i] - 1))
+              && timetable_selected.indexOf((times[i] - 2))
+            ) {
+              throwError({ message: `${key}的预订人数过多，请选择其他日期！`, data: { status: 201 } });
+            }
+          });
+        });
+      });
 
       const data = await Book.create({ ...input, user });
 
