@@ -47,7 +47,6 @@ export default {
           const book_selected = times[key];
 
           book_selected.map((i) => {
-            console.log('timetable_selected.findIndex((i - 1) !== -1)');
             // 检测所选的时间点前面两个时间点是否已被选中
             if ((timetable_selected.indexOf(i - 1) !== -1)
               && (timetable_selected.indexOf(i - 2) !== -1)
