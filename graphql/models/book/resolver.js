@@ -43,14 +43,16 @@ export default {
           const timetable_times = JSON.parse(boo.times);
 
           // 看其他人都选了那些时间段
-          const timetable_selected = timetable_times[key];
+          const timetable_selected = timetable_times[key] || [];
           const book_selected = times[key];
 
           book_selected.map((i) => {
+            console.log('timetable_selected.findIndex((i - 1) !== -1)');
             // 检测所选的时间点前面两个时间点是否已被选中
-            if (timetable_selected.indexOf((times[i] - 1))
-              && timetable_selected.indexOf((times[i] - 2))
+            if ((timetable_selected.indexOf(i - 1) !== -1)
+              && (timetable_selected.indexOf(i - 2) !== -1)
             ) {
+              // 如果条件全部符合，抛出异常
               throwError({ message: `${key}的预订人数过多，请选择其他日期！`, data: { status: 201 } });
             }
           });
