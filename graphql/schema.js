@@ -33,8 +33,14 @@ export default `
     # 创建时间表
     createTimetable(input: TimetableInput): Timetable!
 
+    # 删除时间表
+    deleteTimetable(id: String!): Timetable!
+
     # 创建预订
     createBook(input: BookInput): Book!
+
+    # 删除预订
+    deleteBook(id: String!): Book!
 
     # 创建用户
     createUser(input: CreateUserInput): User

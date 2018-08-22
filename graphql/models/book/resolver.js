@@ -100,7 +100,11 @@ export default {
 
       return data;
     },
-
+    deleteBook: async (root, args, ctx, op) => {
+      const { id } = args;
+      await Book.remove({ _id: id });
+      return {};
+    },
   },
   Query: {
     book: async (root, args) => {

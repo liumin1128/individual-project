@@ -44,6 +44,11 @@ export default {
       await sentOutlookEmail(user, params);
       return data;
     },
+    deleteTimetable: async (root, args, ctx, op) => {
+      const { id } = args;
+      await Timetable.remove({ _id: id });
+      return {};
+    },
 
   },
   Query: {
