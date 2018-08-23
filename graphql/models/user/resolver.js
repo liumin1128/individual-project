@@ -38,6 +38,11 @@ export default {
     },
   },
   Query: {
+    user: async (root, args, ctx) => {
+      const { user } = ctx;
+      const data = await User.findById(user);
+      return data;
+    },
     users: async (root, args) => {
       try {
         const { skip = 0, first = 10, sort = '-createdAt' } = args;

@@ -34,6 +34,8 @@ export default {
       // console.log('timetable');
       // console.log(timetable);
 
+      const timetableUser = await User.findById(timetable.user);
+
       // 查找当前活动已被预订的数据
       const bookList = await Book.find({ timetable: input.timetable });
 
@@ -58,6 +60,7 @@ export default {
         });
       });
 
+
       const data = await Book.create({ ...input, user });
 
       // 给预订者发邮件
@@ -66,7 +69,15 @@ export default {
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【your meeting is booked！！】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>thanks for booking your appointment, click here to check the meeting information：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【your meeting is booked！！】${timetable.title}</h1>
+          <br/><p>${data.description}</p>
+          <br/>
+
+          <p>thanks for booking your appointment, click here to check the meeting information：</p>
+          <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
+          <p>发布者：${timetableUser.nickname}</p>
+          <p>联系方式：${timetableUser.username}</p>
+          `,
         },
         toRecipients: [
           {
@@ -87,7 +98,13 @@ export default {
         importance: 'Low',
         body: {
           contentType: 'HTML',
-          content: `<h1>【new appointment】${timetable.title}</h1><br/><p>${data.description}</p><br/><p>you have a new appointment! click here to check te meeting information：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          content: `<h1>【new appointment】${timetable.title}</h1>
+          <br/><p>${data.description}</p>
+          <br/><p>you have a new appointment! click here to check te meeting information：</p>
+          <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
+          <p>预订者：${userInfo.nickname}</p>
+          <p>联系邮箱：${userInfo.username}</p>
+          `,
         },
         toRecipients: [
           {
