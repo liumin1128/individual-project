@@ -36,11 +36,11 @@ export const sentOutlookEmail = async (userId, params) => {
     const oauth = await Oauth.findOne({ user: userId });
 
     console.log('-----------------oauth-----------------');
-    console.log(userId);
-    console.log(oauth);
+    // console.log(userId);
+    // console.log(oauth);
 
     const token = oauth.data.token.access_token;
-
+    console.log(token);
 
     const data = await fetch1(url, params, {
       headers: {

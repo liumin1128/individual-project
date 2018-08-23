@@ -76,11 +76,9 @@ class OauthClass {
       const data = await fetch(url, {}, options);
       const buff = Buffer.from(data.id_token.split('.')[1], 'base64');
       const result = JSON.parse(buff.toString());
-
-      console.log('data');
-      console.log(data);
-
       result.token = data;
+      console.log('--------------result');
+      console.log(result);
 
       // 从数据库查找对应用户第三方登录信息
       let oauth = await Oauth.findOne({ from: 'outlook', 'data.preferred_username': result.preferred_username });
@@ -93,8 +91,10 @@ class OauthClass {
         // 用户第三方信息存一下
         oauth = await Oauth.create({ from: 'outlook', data: result, user });
       } else {
-        oauth.save({ data: result });
+        const ssss = await oauth.update({ data: result });
         // todo 刷新一下用户信息，避免token过期
+        console.log('ssss');
+        console.log(ssss);
       }
 
       // 生成token（用户身份令牌）

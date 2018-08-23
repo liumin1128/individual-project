@@ -45,7 +45,10 @@ export default {
           },
         ],
       };
-      await sentOutlookEmail(user, params);
+
+      const datass = await sentOutlookEmail(user, params);
+      console.log('datass');
+      console.log(datass);
       return data;
     },
     deleteTimetable: async (root, args, ctx, op) => {
