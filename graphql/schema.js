@@ -11,17 +11,17 @@ export default `
   type Query {
 
     # 用户
-    user: User!
-    users(first: Int, skip: Int): [User!]
+    user: User
+    users(first: Int, skip: Int): [User]
 
     # 时间表
-    timetable(_id: String): Timetable!
-    timetables(first: Int, skip: Int): [Timetable!]
-    _timetablesMeta: TimetableMeta!
+    timetable(_id: String): Timetable
+    timetables(first: Int, skip: Int): [Timetable]
+    _timetablesMeta: TimetableMeta
 
     # 预订
-    book(_id: String): Book!
-    books(first: Int, skip: Int): [Book!]
+    book(_id: String): Book
+    books(first: Int, skip: Int): [Book]
     _booksMeta: BookMeta!
 
   }
@@ -31,16 +31,16 @@ export default `
     userLogin(username: String!, password: String!): UserLogin
 
     # 创建时间表
-    createTimetable(input: TimetableInput): Timetable!
+    createTimetable(input: TimetableInput): Timetable
 
     # 删除时间表
-    deleteTimetable(id: String!): Timetable!
+    deleteTimetable(id: String!): Timetable
 
     # 创建预订
-    createBook(input: BookInput): Book!
+    createBook(input: BookInput): Book
 
     # 删除预订
-    deleteBook(id: String!): Book!
+    deleteBook(id: String!): Book
 
     # 创建用户
     createUser(input: CreateUserInput): User
