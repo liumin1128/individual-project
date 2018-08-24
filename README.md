@@ -68,7 +68,7 @@ https://apps.dev.microsoft.com/#/appList
 
 创建了一个应用
 
-名称随意: react.mobi
+名称随意: mengmengliu.me
 
 类型: Web Api
 

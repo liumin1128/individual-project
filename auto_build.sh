@@ -1,4 +1,4 @@
-PRO_DIR="../api.react.mobi"
+PRO_DIR="../api.mengmengliu.me"
 
 echo "进入项目目录"
 PATH_OLD=`pwd`
@@ -22,6 +22,6 @@ echo "安装依赖"
 yarn
 
 echo "重启pm2"
-# pm2 restart api.react.mobi
+# pm2 restart api.mengmengliu.me
 yarn pm2
 echo "finished----------"

@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "api.react.mobi",
+      "name": "api.mengmengliu.me",
       "script": "index.js",
       "log_date_format": "YYYY-MM-DD HH:mm Z",
       "error_file" : "./logs/app-err.log",
