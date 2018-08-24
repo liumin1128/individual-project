@@ -16,7 +16,7 @@ const router = new Router();
 
 const port = process.env.NODE_ENV === 'production' ? 3101 : PORT;
 
-mongoose.connect(LOCAL ? 'mongodb://localhost:27017/laywer' : 'mongodb://react:lol970568830@localhost:27000/react');
+mongoose.connect(LOCAL ? 'mongodb://localhost:27017/mengmengliu' : 'mongodb://react:lol970568830@localhost:27000/mengmengliu');
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
 
