@@ -54,7 +54,7 @@ export default {
               && (timetable_selected.indexOf(i - 2) !== -1)
             ) {
               // 如果条件全部符合，抛出异常
-              throwError({ message: `${key}的预订人数过多，请选择其他日期！`, data: { status: 201 } });
+              throwError({ message: `${key} there are two meeting before your booking，for teacher have a rest, please choose other time！`, data: { status: 201 } });
             }
           });
         });
