@@ -54,7 +54,7 @@ export default {
               && (timetable_selected.indexOf(i - 2) !== -1)
             ) {
               // 如果条件全部符合，抛出异常
-              throwError({ message: `${key}的预订人数过多，请选择其他日期！`, data: { status: 201 } });
+              throwError({ message: `${key} there are two meeting before your booking，for teacher have a rest, please choose other time！`, data: { status: 201 } });
             }
           });
         });
@@ -75,8 +75,8 @@ export default {
 
           <p>thanks for booking your appointment, click here to check the meeting information：</p>
           <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
-          <p>发布者：${timetableUser.nickname}</p>
-          <p>联系方式：${timetableUser.username}</p>
+          <p>teacher：${timetableUser.nickname}</p>
+          <p>contact details：${timetableUser.username}</p>
           `,
         },
         toRecipients: [
@@ -102,8 +102,8 @@ export default {
           <br/><p>${data.description}</p>
           <br/><p>you have a new appointment! click here to check te meeting information：</p>
           <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
-          <p>预订者：${userInfo.nickname}</p>
-          <p>联系邮箱：${userInfo.username}</p>
+          <p>student：${userInfo.nickname}</p>
+          <p>contact details：${userInfo.username}</p>
           `,
         },
         toRecipients: [
