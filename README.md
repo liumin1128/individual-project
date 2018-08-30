@@ -185,9 +185,56 @@ headers: {
 将方法抽象为公共函数，传入用户id和邮件参数，即可实现任意用户对其他任意用户发送邮件的需求。
 
 
+### https证书配置
+
+acme.sh --issue -d mengmengliu.me -d www.mengmengliu.me -d api.mengmengliu.me --nginx
+
+acme.sh --installcert  -d  mengmengliu.me   \
+        --key-file   /etc/nginx/ssl/mengmengliu.me.key \
+        --fullchain-file /etc/nginx/ssl/fullchain.cer \
+        --reloadcmd  "service nginx force-reload"
 
 
+server {
+    listen 80;
+    server_name mengmengliu.me www.mengmengliu.me api.mengmengliu.me;
+    location / {
+        rewrite ^(.*)$ https://$host$1 last;
+    }
+}
+server {
+    listen 443 ssl http2;
+    server_name www.mengmengliu.me, mengmengliu.me;
+   
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+    }
 
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/fullchain.cer;
+    ssl_certificate_key /etc/nginx/ssl/mengmengliu.me.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA;
+    ssl_session_cache shared:SSL:50m;
+    # ssl_dhparam /var/www/challenges/server.dhparam;
+    ssl_prefer_server_ciphers on;
+}
+server {
+    listen 443 ssl http2;
+    server_name api.mengmengliu.me;
+   
+    location / {
+        proxy_pass http://127.0.0.1:3101;
+    }
 
-
-
+    ssl on;
+    ssl_certificate /etc/nginx/ssl/fullchain.cer;
+    ssl_certificate_key /etc/nginx/ssl/mengmengliu.me.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA;
+    ssl_session_cache shared:SSL:50m;
+    # ssl_dhparam /var/www/challenges/server.dhparam;
+    ssl_prefer_server_ciphers on;
+}
