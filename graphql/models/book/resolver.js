@@ -74,7 +74,7 @@ export default {
           <br/>
 
           <p>thanks for booking your appointment, click here to check the meeting information：</p>
-          <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
+          <p><a href="http://mengmengliu.me/timetable/detail?_id=${data._id}">http://mengmengliu.me/timetable/detail?_id=${data._id}</a></p>
           <p>teacher：${timetableUser.nickname}</p>
           <p>contact details：${timetableUser.username}</p>
           `,
@@ -101,7 +101,7 @@ export default {
           content: `<h1>【new appointment】${timetable.title}</h1>
           <br/><p>${data.description}</p>
           <br/><p>you have a new appointment! click here to check te meeting information：</p>
-          <p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>
+          <p><a href="http://mengmengliu.me/timetable/detail?_id=${data._id}">http://mengmengliu.me/timetable/detail?_id=${data._id}</a></p>
           <p>student：${userInfo.nickname}</p>
           <p>contact details：${userInfo.username}</p>
           `,

@@ -35,7 +35,7 @@ export default {
           <br/>
           <p>${data.description}</p>
           <p>${data.startOfDay} ~ ${data.endOfDay}</p>
-          <br/><p>thanks for booking meeting ,please click here to check the booking information ：</p><p><a href="http://localhost:8000/timetable/detail?_id=${data._id}">http://localhost:8000/timetable/detail?_id=${data._id}</a></p>`,
+          <br/><p>thanks for booking meeting ,please click here to check the booking information ：</p><p><a href="http://mengmengliu.me/timetable/detail?_id=${data._id}">http://mengmengliu.me/timetable/detail?_id=${data._id}</a></p>`,
         },
         toRecipients: [
           {
