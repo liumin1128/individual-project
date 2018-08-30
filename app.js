@@ -7,7 +7,7 @@ import helmet from 'koa-helmet';
 import jwt from 'koa-jwt';
 import mongoose from 'mongoose';
 import Oauth from './server/oauth';
-import { PORT, DEV, LOCAL, SECRET } from './config';
+import { PORT, SECRET } from './config';
 import error from './middlewares/error_back';
 import { graphiql, graphql } from './graphql';
 
@@ -16,7 +16,7 @@ const router = new Router();
 
 const port = process.env.NODE_ENV === 'production' ? 3101 : PORT;
 
-mongoose.connect(LOCAL ? 'mongodb://localhost:27017/mengmengliu' : 'mongodb://react:lol970568830@localhost:27000/mengmengliu');
+mongoose.connect('mongodb://localhost:27017/mengmengliu');
 mongoose.set('debug', true);
 mongoose.Promise = global.Promise;
 
