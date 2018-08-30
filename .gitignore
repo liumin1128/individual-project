@@ -6,10 +6,10 @@
 /.dump.rdb
 /updateConfig.sh
 
-/yarn.lock
+# /yarn.lock
 /yarn-error.log
 /yarn-error.log
-/package-lock.json
+# /package-lock.json
 
 # misc
 .DS_Store
