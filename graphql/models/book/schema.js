@@ -5,7 +5,7 @@ export default `
   type Book {
     description: String!
     user: User!
-    timetable: Timetable!
+    timetable: Timetable
     firstName: String!
     lastName: String!
     studentId: String!
