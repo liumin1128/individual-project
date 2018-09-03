@@ -66,11 +66,12 @@ export default {
       console.log(data);
       return data;
     },
-    timetables: async (root, args) => {
+    timetables: async (root, args, ctx) => {
       try {
+        const { user } = ctx;
         const { skip = 0, first = 10, sort = '-createdAt' } = args;
         const data = await Timetable
-          .find({})
+          .find({ user })
           .skip(skip)
           .limit(first)
           .sort(sort);

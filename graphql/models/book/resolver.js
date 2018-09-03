@@ -131,15 +131,16 @@ export default {
       console.log(data);
       return data;
     },
-    books: async (root, args) => {
+    books: async (root, args, ctx) => {
       try {
+        const { user } = ctx;
         const { skip = 0, first = 10, sort = '-createdAt' } = args;
         const data = await Book
-          .find({})
+          .find({ user })
           .skip(skip)
           .limit(first)
           .sort(sort);
-        return data.filter(i => !i);
+        return data;
       } catch (error) {
         console.log(error);
       }
