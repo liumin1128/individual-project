@@ -139,7 +139,7 @@ export default {
           .skip(skip)
           .limit(first)
           .sort(sort);
-        return data;
+        return data.filter(i => !i);
       } catch (error) {
         console.log(error);
       }
